@@ -1,8 +1,12 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const createError = require("http-errors");
-const bodyParser = require("body-parser");
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+import createError from "http-errors";
+import bodyParser from "body-parser";
+import { configDotenv } from 'dotenv';
+import todoRoute from "./Routes/todo.route.js";
+configDotenv();
+
 const DB_URI = process.env.DB_URI;
 
 // db connection
@@ -29,6 +33,8 @@ app.use(
     extended: false,
   })
 );
+
+app.use("/todos", todoRoute)
 
 const PORT = process.env.PORT || 4000;
 
