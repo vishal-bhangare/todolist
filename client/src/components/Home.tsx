@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect } from "react";
+import { useEffect } from "react";
 import styles from "../styles/Home.module.scss";
 import {
   useAddTodoMutation,
@@ -8,8 +8,6 @@ import {
 } from "../store/todoApi";
 
 const Home = () => {
-  const addTodoForm = React.createRef<HTMLFormElement>();
-
   const { data: todos, isLoading } = useGetTodosQuery();
   const [addTodo] = useAddTodoMutation();
   const [updateTodo] = useUpdateTodoMutation();
@@ -44,11 +42,7 @@ const Home = () => {
     <div className={styles.container}>
       <div className={styles.main}>
         <div className={styles.header}>My Todos</div>
-        <form
-          className={styles.addTodo}
-          ref={addTodoForm}
-          onSubmit={handleSubmit}
-        >
+        <form className={styles.addTodo} onSubmit={handleSubmit}>
           <div className={styles.form_element}>
             <label htmlFor="title">Title</label>
             <input type="text" name="title" id="title" />
@@ -61,7 +55,7 @@ const Home = () => {
         </form>
         <div className={styles.todos}>
           {!isLoading &&
-            todos?.map((todo, i) => (
+            todos?.map((todo) => (
               <div className={styles.todo} key={todo._id}>
                 <div className={styles.info}>
                   <span className={styles.title}>{todo.title}</span>
