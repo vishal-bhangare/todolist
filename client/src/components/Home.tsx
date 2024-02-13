@@ -37,7 +37,9 @@ const Home = () => {
       console.log(error);
     }
   };
-  useEffect(() => {}, [todos]);
+  useEffect(() => {
+    console.log(!["s"]);
+  }, [todos]);
   return (
     <div className={styles.container}>
       <div className={styles.main}>
@@ -54,7 +56,7 @@ const Home = () => {
           <button type="submit">Add todo</button>
         </form>
         <div className={styles.todos}>
-          {!isLoading &&
+          {!isLoading && todos?.length ? (
             todos?.map((todo) => (
               <div className={styles.todo} key={todo._id}>
                 <div className={styles.info}>
@@ -79,7 +81,12 @@ const Home = () => {
                   </button>
                 </div>
               </div>
-            ))}
+            ))
+          ) : (
+            <h3>
+              <center>No todo found.</center>
+            </h3>
+          )}
         </div>
       </div>
     </div>
