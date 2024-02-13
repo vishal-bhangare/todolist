@@ -1,0 +1,121 @@
+.container {
+  background: #ccc;
+
+  .main {
+    background: #252525;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 80%;
+    max-width: 500px;
+
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 1rem;
+    color: #fff;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-radius: 0.8rem;
+    padding: 2rem;
+    overflow: hidden;
+    .header {
+      width: 100%;
+      text-align: center;
+      padding: 0.5rem 0;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    .addTodo {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      font-size: 0.9rem;
+      gap: 1rem;
+      background-color: #333333;
+      padding: 0.5rem;
+      .form_element {
+        width: 30%;
+        input {
+          width: 100%;
+          outline: none;
+          border: none;
+          border-radius: 0.4rem;
+          padding: 0.2rem 0.4rem;
+        }
+      }
+      button {
+        padding: 0.2rem 0.6rem;
+        margin-left: auto;
+        background: #f59e0b;
+        color: #fff;
+        font-weight: 600;
+        &:hover {
+          background: #d97706;
+        }
+      }
+    }
+    .todos {
+      background-color: #333333;
+      padding: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      max-height: 250px;
+      overflow-y: scroll;
+
+      .todo {
+        display: flex;
+        justify-content: space-between;
+
+        .info {
+          white-space: pre-line;
+          word-break: break-all;
+          .title {
+            font-weight: 600;
+          }
+          .desc {
+            font-size: 0.8rem;
+          }
+        }
+        .actions {
+          display: flex;
+          flex-direction: column;
+          align-items: end;
+          gap: 0.2rem;
+          color: #fff;
+          .complete_todo {
+            color: #fff;
+            background: #22c55e;
+            &:hover {
+              background: #16a34a;
+            }
+          }
+
+          .delete_todo {
+            color: #fff;
+            background: #e11d48;
+            &:hover {
+              background: #be123c;
+            }
+          }
+        }
+      }
+    }
+    .todos::-webkit-scrollbar {
+      width: 0;
+    }
+  }
+}
+
+button {
+  border-radius: 0.4rem;
+  padding: 0.1rem 0.5rem;
+  outline: none;
+  border: none;
+  width: fit-content;
+}
