@@ -24,7 +24,13 @@ dbConnection(DB_URI)
 const app = express();
 
 // handling cors
-app.use(cors());
+const allowCrossDomain = (req, res, next) => {
+  res.header(`Access-Control-Allow-Origin`, `*`);
+  res.header(`Access-Control-Allow-Methods`, `GET,PUT,POST,DELETE,PATCH`);
+  res.header(`Access-Control-Allow-Headers`, `Content-Type`);
+  next();
+};
+app.use(allowCrossDomain)
 
 // adding json bodyparser
 app.use(bodyParser.json());

@@ -21,7 +21,7 @@ todoRoute.route("/").post(async (req, res, next) => {
       description: req.body.description,
       status: 0
     });
-    return res.status(201).json({ "message": "todo added.", response: response });
+    return res.status(201).json({ message: "todo added.", data: response });
   } catch (err) {
     next(err);
   }
@@ -32,8 +32,8 @@ todoRoute.route("/:id").patch(async (req, res, next) => {
   try {
     const response = await Todo.updateOne({ _id: req.params.id }, { status: req.body.status })
     if (!response.matchedCount)
-      return res.status(404).json({ "message": "todo not found." });
-    return res.status(201).json({ "message": "status updated.", response: response });
+      return res.status(404).json({ message: "todo not found." });
+    return res.status(201).json({ message: "status updated." });
   } catch (err) {
     next(err);
   }
@@ -44,8 +44,8 @@ todoRoute.route("/:id").delete(async (req, res, next) => {
   try {
     const response = await Todo.deleteOne({ _id: req.params.id });
     if (!response.deletedCount)
-      return res.status(404).json({ "message": "todo not found." });
-    return res.status(201).json({ "message": "todo deleted.", response: response });
+      return res.status(404).json({ message: "todo not found." });
+    return res.status(201).json({ message: "todo deleted." });
   } catch (err) {
     next(err);
   }
