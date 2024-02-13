@@ -3,7 +3,9 @@ import { Todo } from "../entities/Todo";
 
 export const todoApi = createApi({
   reducerPath: "todoApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:4000/todos" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://todolist-api-2hel.onrender.com/todos",
+  }),
   tagTypes: ["Todo"],
   endpoints: (builder) => ({
     getTodos: builder.query<Todo[], void>({
