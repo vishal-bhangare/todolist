@@ -59,10 +59,23 @@ const Home = () => {
           {!isLoading && todos?.length ? (
             todos?.map((todo) => (
               <div className={styles.todo} key={todo._id}>
-                <div className={styles.info}>
-                  <span className={styles.title}>{todo.title}</span>
+                <div
+                  className={[
+                    styles.info,
+                    todo.status ? styles.completed : "",
+                  ].join(" ")}
+                >
+                  <span className={styles.title}>
+                    {todo.status ? <del>{todo.title}</del> : todo.title}
+                  </span>
                   <br />
-                  <span className={styles.desc}>{todo.description}</span>
+                  <span className={styles.desc}>
+                    {todo.status ? (
+                      <del>{todo.description}</del>
+                    ) : (
+                      todo.description
+                    )}
+                  </span>
                 </div>
                 <div className={styles.actions}>
                   {todo.status == 0 && (
