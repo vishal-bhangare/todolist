@@ -56,7 +56,8 @@ const Home = () => {
           <button type="submit">Add todo</button>
         </form>
         <div className={styles.todos}>
-          {!isLoading && todos?.length ? (
+          {!isLoading &&
+            todos?.length! > 0 &&
             todos?.map((todo) => (
               <div className={styles.todo} key={todo._id}>
                 <div
@@ -94,10 +95,15 @@ const Home = () => {
                   </button>
                 </div>
               </div>
-            ))
-          ) : (
+            ))}
+          {!isLoading && !todos?.length && (
             <h3>
               <center>No todo found.</center>
+            </h3>
+          )}
+          {isLoading && (
+            <h3>
+              <center>Loading todos...</center>
             </h3>
           )}
         </div>
