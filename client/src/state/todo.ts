@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "../api-client";
 import { Todo } from "../entities/Todo";
-import { AppDispatch, RootState } from "./store";
+import { AppDispatch } from "./store";
 
 const initialState: { list: Todo[]; isLoading: boolean } = {
   list: [],
@@ -12,14 +12,14 @@ const todoSlice = createSlice({
   name: "todos",
   initialState,
   reducers: {
-    todosRequested: (todos, action) => {
+    todosRequested: (todos) => {
       todos.isLoading = true;
     },
     todosReceived: (todos, action) => {
       todos.list = action.payload;
       todos.isLoading = false;
     },
-    todosRequestFailed: (todos, action) => {
+    todosRequestFailed: (todos) => {
       todos.isLoading = false;
     },
     todoAdded: (todos, action) => {
