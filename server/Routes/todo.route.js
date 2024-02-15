@@ -16,12 +16,12 @@ todoRoute.route("/").get(async (req, res, next) => {
 // create new todo
 todoRoute.route("/").post(async (req, res, next) => {
   try {
-    const response = await Todo.create({
+    const savedTodo = await Todo.create({
       title: req.body.title,
       description: req.body.description,
       status: 0
     });
-    return res.status(201).json({ message: "todo added.", data: response });
+    return res.status(201).json({ message: "todo added.", todo: savedTodo });
   } catch (err) {
     next(err);
   }

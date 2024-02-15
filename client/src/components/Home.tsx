@@ -1,45 +1,37 @@
 import { useEffect } from "react";
+import { Todo } from "../entities/Todo";
+import { useAppDispatch, useAppSelector } from "../state/hooks";
+import { RootState } from "../state/store";
+import { addTodo, deleteTodo, loadTodos, updateTodo } from "../state/todo";
 import styles from "../styles/Home.module.scss";
-import {
-  useAddTodoMutation,
-  useDeleteTodoMutation,
-  useGetTodosQuery,
-  useUpdateTodoMutation,
-} from "../store/todoApi";
 
 const Home = () => {
-  const { data: todos, isLoading } = useGetTodosQuery();
-  const [addTodo] = useAddTodoMutation();
-  const [updateTodo] = useUpdateTodoMutation();
-  const [deletedTodo] = useDeleteTodoMutation();
+  // const { data, isLoading } = useGetTodosQuery();
+  // const [addTodo] = useAddTodoMutation();
+  // const [updateTodo] = useUpdateTodoMutation();
+  // const [deletedTodo] = useDeleteTodoMutation();
+
+  const dispatch = useAppDispatch();
+
+  const { list: todos, isLoading } = useAppSelector(
+    (state: RootState) => state.todos
+  );
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     console.log(e.target[0].value);
-    try {
-      const data = await addTodo({
+    dispatch(
+      addTodo({
         title: e.target[0].value,
         description: e.target[1].value,
-      });
-      if (data) {
-        e.target.reset();
-        alert("New todo added.");
-      }
-    } catch (error) {
-      console.log(error);
-    }
+      })
+    );
+    e.target.reset();
   };
-  const markAsCompleted = async (id: string) => {
-    try {
-      const res = await updateTodo(id);
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
   useEffect(() => {
-    console.log(!["s"]);
-  }, [todos]);
+    dispatch(loadTodos());
+  }, []);
   return (
     <div className={styles.container}>
       <div className={styles.main}>
@@ -58,7 +50,7 @@ const Home = () => {
         <div className={styles.todos}>
           {!isLoading &&
             todos?.length! > 0 &&
-            todos?.map((todo) => (
+            todos?.map((todo: Todo) => (
               <div className={styles.todo} key={todo._id}>
                 <div
                   className={[
@@ -81,14 +73,14 @@ const Home = () => {
                 <div className={styles.actions}>
                   {todo.status == 0 && (
                     <button
-                      onClick={() => markAsCompleted(todo._id!)}
+                      onClick={() => dispatch(updateTodo(todo._id!))}
                       className={styles.complete_todo}
                     >
                       Mark as completed
                     </button>
                   )}
                   <button
-                    onClick={() => deletedTodo(todo._id!)}
+                    onClick={() => dispatch(deleteTodo(todo._id!))}
                     className={styles.delete_todo}
                   >
                     Delete
